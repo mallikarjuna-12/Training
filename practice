@@ -1,0 +1,62 @@
+let totaldays=prompt("Total Number of Working Days:")
+      let absent=prompt("Total Number of days absent: ")
+      let presentdays=totaldays-absent
+      let percentage=(presentdays/totaldays)*100
+      if(percentage>=75){
+        document.write("This person eligible for the exam percentage is :"+percentage)
+      }else{
+        document.write("This person is not eligible for the exam because his percentge is:"+percentage)
+      }
+
+Example2:
+ let num1=prompt("enter the first number:")
+      let num2=prompt("enter the secound number:")
+      let num3=prompt("enter the third number:")
+      if(num1>num2 && num1>num3){
+       document.write(num1+" is greater then the given numbers..")
+     }
+     else if(num2>num1 && num2>num3){
+        document.write(num2+"is greater then the given numbers")
+      }
+      else{
+       document.write(num3+" is greater then the given numbers..")
+      }
+Example3:
+let num=prompt()
+      if(num%2==0 && num%3==0){
+        document.write(${num} is divisible by the 2 and 3)
+      
+      }
+      else if(num%2==0){
+       document.write(${num} is divisible by the 2 only)
+    
+     }
+      else if(num%3==0){
+      document.write(${num} is divisible by the 3 only)
+      }
+     else{
+       document.write(${num} is not divisible by the 2 and 3)
+      }
+Example4:
+let salary=parseInt(prompt("enter the Salary:"))
+      let experience=parseInt(prompt("enter the Expreince:"))
+      if(experience>10){
+        var totalsalary=(10/100)*salary
+        var amount=salary+totalsalary
+      
+        document.write("bonus amount"+totalsalary,"<br>")
+        document.write("Toatal Salary="+amount)
+      }
+      else if(experience>=6 && experience<=10){
+        let totalsalary=(8/100)*salary
+        let amount=salary+totalsalary
+        document.write("bonus amount:"+totalsalary,"<br>")
+        document.write("Toatal Salary:"+amount)
+
+      }
+      else if(experience<6){
+        let totalsalary=(5/100)*salary
+        let amount=salary+totalsalary
+        document.write("bonus amount:"+totalsalary,"<br>")
+        document.write("Toatal Salary:"+amount)
+      }
