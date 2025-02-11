@@ -1,0 +1,82 @@
+profilecard.js:
+import React from "react";
+import "./App.css";
+
+const ProfileCard = ({ name, greeting, imageSrc }) => {
+  return (
+    <div className="profile-card">
+      <img className="profile-image" src={imageSrc} alt={name} />
+      <h2 className="profile-name">{name}</h2>
+      <p className="profile-greeting">{greeting}</p>
+    </div>
+  );
+};
+
+export default ProfileCard;
+App.js:
+import React from "react";
+import "./App.css";
+import ProfileCard from "./ProfileCard";
+
+const App = () => {
+  return (
+    <div className="app-container">
+      <ProfileCard 
+        name="Alice Johnson" 
+        greeting="Hello, welcome to my profile!" 
+        imageSrc="https://via.placeholder.com/150" 
+      />
+      <ProfileCard 
+        name="Bob Smith" 
+        greeting="Hey there, nice to meet you!" 
+        imageSrc="https://via.placeholder.com/150" 
+      />
+      <ProfileCard 
+        name="Charlie Davis" 
+        greeting="Good day! Hope you're doing well." 
+        imageSrc="https://via.placeholder.com/150" 
+      />
+    </div>
+  );
+};
+
+export default App;
+app.css:
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: green;
+}
+
+.profile-card {
+  background: blue;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 250px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+}
+
+.profile-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 10px;
+  background-color: aqua;
+}
+
+.profile-greeting {
+  color: #555;
+  font-size: 0.9em;
+  margin-top: 5px;
+  background-color: navy;
+}
