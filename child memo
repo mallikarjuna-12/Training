@@ -1,0 +1,100 @@
+App.js:
+import React, { useState } from "react";
+import "./App.css";
+import ChildA from "./ChildA";
+import ChildB from "./ChildB";
+
+const Parent = () => {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
+
+  const decrement = () => {
+    setCount((prevCount) => prevCount - 1);
+  };
+
+  return (
+    <div className="container">
+      <h1>Parent Component to rendering</h1>
+      <p>Count: {count}</p>
+      <ChildA count={count} increment={increment} decrement={decrement} />
+      <ChildB count={count} increment={increment} decrement={decrement} />
+    </div>
+  );
+};
+
+export default Parent;
+ChildA.js:
+import React from "react";
+
+const ChildA = ({ count, increment, decrement }) => {
+  return (
+    <div className="child">
+      <h2>Child A</h2>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment from Child A</button>
+      <button onClick={decrement}>Decrement from Child A</button>
+    </div>
+  );
+};
+
+export default ChildA;
+ChildB.js:
+import React from "react";
+
+const ChildB = ({ count, increment, decrement }) => {
+  return (
+    <div className="child">
+      <h2>Child B</h2>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment from Child B</button>
+      <button onClick={decrement}>Decrement from Child B</button>
+    </div>
+  );
+};
+
+export default ChildB;
+App.css:
+.container {
+  text-align: center;
+  margin: 20px;
+  background-color: green;
+}
+
+.child {
+  border: 2px solid #ddd;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+  display: inline-block;
+  background-color: orange;
+}
+
+button {
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+  background-color: aqua;
+}
+.increment-btn {
+  background-color:red;
+}
+
+.increment-btn:hover {
+  background-color: blue;
+}
+.decrement-btn {
+  background-color:navy;
+}
+
+.decrement-btn:hover {
+  background-color: beige;
+}
+
+
