@@ -1,0 +1,81 @@
+App.css:
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: blue;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background: aqua;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: orange;
+}
+
+p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+div {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+App.js:
+import React, { createContext, useContext } from "react";
+import "./App.css";
+
+// Create context to hold the data
+const CountContext = createContext();
+
+function App() {
+  const data = "HELLO, I AM K.MALLIKARJUNARAO!!!";
+  return (
+    <div className="container">
+      <h1>Example for prop drilling</h1>
+      <CountContext.Provider value={data}>
+        <User1 />
+      </CountContext.Provider>
+    </div>
+  );
+}
+
+// User1 component
+function User1() {
+  return <User2 />;
+}
+
+// User2 component
+function User2() {
+  return <User3 />;
+}
+
+// User3 component
+function User3() {
+  return <User4 />;
+}
+
+// User4 component
+function User4() {
+  const data = useContext(CountContext);
+  return <div>{data}</div>;
+}
+
+export default App;
