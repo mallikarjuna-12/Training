@@ -1,0 +1,111 @@
+App.js:
+import React, { useReducer } from "react"; 
+import "./App.css";
+
+// Reducer function to track the number of apples
+function appleReducer(state, action) { 
+  switch (action.type) { 
+    case 'ADD_APPLE': 
+      return state + 1; 
+    case 'EAT_APPLE': 
+      return state > 0 ? state - 1 : 0;
+    default: 
+      return state; 
+  } 
+} 
+
+function App() { 
+  const [count, dispatch] = useReducer(appleReducer, 3); 
+  const appleImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/600px-Red_Apple.jpg"; // Replace with your copied image URL
+
+  return ( 
+    <div className="container"> 
+      <h1>🍏 Apple Counter 🍎</h1> 
+      <div className="apple-container">
+        {count > 0 ? (
+          Array.from({ length: count }).map((_, index) => (
+            <img key={index} src={appleImageUrl} alt="Apple" className="apple-image" />
+          ))
+        ) : (
+          <p>No apples left! 🍏</p>
+        )}
+      </div>
+      <button className="add-apple" onClick={() => dispatch({ type: 'ADD_APPLE' })}>Add Apple</button> 
+      <button 
+        className="eat-apple" 
+        onClick={() => dispatch({ type: 'EAT_APPLE' })} 
+        disabled={count === 0}
+      >
+        Eat Apple
+      </button> 
+    </div> 
+  ); 
+} 
+
+export default App;
+App.css:
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: aqua;
+    border-radius: 10px;
+  }
+  
+  .apple-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    background-color: orange;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .apple-image {
+    width: 80px;
+    height: 80px;
+    transition: transform 0.2s;
+  }
+  
+  .apple-image:hover {
+    transform: scale(1.1);
+  }
+  .add-apple {
+    background-color: green;
+    color: white;
+    font-size: 14px;
+    margin: 10px;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .add-apple:hover {
+    background-color: yellow;
+    color: black;
+  }
+  .eat-apple {
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    margin: 10px;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .eat-apple:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  .eat-apple:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  
