@@ -1,0 +1,202 @@
+App.js:
+import React, { createContext, useContext, useReducer, useState, useMemo } from "react";
+import "./App.css";
+
+// Define actions
+const ADD_ITEM = "ADD_ITEM";
+const REMOVE_ITEM = "REMOVE_ITEM";
+const CLEAR_ITEMS = "CLEAR_ITEMS";
+
+// Initial state
+const initialState = { items: [] };
+
+// Reducer function
+function listReducer(state, action) {
+  switch (action.type) {
+    case ADD_ITEM:
+      return { items: [...state.items, Number(action.payload)] };
+    case REMOVE_ITEM:
+      return { items: state.items.filter((_, index) => index !== action.payload) };
+    case CLEAR_ITEMS:
+      return { items: [] };
+    default:
+      return state;
+  }
+}
+
+// Create context
+const ListContext = createContext();
+
+// Context provider
+function ListProvider({ children }) {
+  const [state, dispatch] = useReducer(listReducer, initialState);
+  return (
+    <ListContext.Provider value={{ state, dispatch }}>{children}</ListContext.Provider>
+  );
+}
+
+// Custom hook to use context
+function useList() {
+  return useContext(ListContext);
+}
+
+// Item List Component
+function ItemList() {
+  const { state, dispatch } = useList();
+
+  // Memoized list to optimize rendering
+  const memoizedList = useMemo(() => state.items, [state.items]);
+
+  const sum = memoizedList.reduce((acc, num) => acc + num, 0);
+  const product = memoizedList.reduce((acc, num) => acc * num, memoizedList.length > 0 ? 1 : 0);
+  const difference = memoizedList.reduce((acc, num) => acc - num, memoizedList.length > 0 ? memoizedList[0] * 2 : 0);
+  const quotient = memoizedList.reduce((acc, num) => (num !== 0 ? acc / num : acc), memoizedList.length > 0 ? memoizedList[0] ** 2 : 1);
+
+  return (
+    <div className="card">
+      <h2>Item List ({memoizedList.length})</h2>
+      <ul>
+        {memoizedList.map((item, index) => (
+          <li key={index} className="list-item">
+            {item}
+            <button className="remove-button" onClick={() => dispatch({ type: REMOVE_ITEM, payload: index })}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+      {memoizedList.length > 0 && (
+        <>
+          <button className="clear-button" onClick={() => dispatch({ type: CLEAR_ITEMS })}>
+            Remove All
+          </button>
+          <div className="operations">
+            <button className="operation-button">Sum: {sum}</button>
+            <button className="operation-button">Product: {product}</button>
+            <button className="operation-button">Difference: {difference}</button>
+            <button className="operation-button">Quotient: {quotient}</button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// Add Item Component
+function AddItem() {
+  const { dispatch } = useList();
+  const [input, setInput] = useState("");
+
+  const handleAddItem = () => {
+    if (!isNaN(input) && input.trim() !== "") {
+      dispatch({ type: ADD_ITEM, payload: input });
+      setInput("");
+    }
+  };
+
+  return (
+    <div className="input-container">
+      <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter number" />
+      <button className="add-button" onClick={handleAddItem}>Add</button>
+    </div>
+  );
+}
+
+// Main App Component
+export default function App() {
+  return (
+    <ListProvider>
+      <div className="app-container">
+        <h1>Item Manager</h1>
+        <AddItem />
+        <ItemList />
+      </div>
+    </ListProvider>
+  );
+}
+App.css:
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.input-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+  width: 320px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to right, #56ab2f, #a8e063);
+  color: white;
+}
+
+.operations {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  background-color: aqua;
+}
+
+.operation-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: bold;
+  background: aqua;
+  color: white;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+  color: white;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.add-button, .remove-button, .clear-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: bold;
+}
+
+.add-button {
+  background: black;
+  color: white;
+}
+
+.remove-button {
+  background: blue;
+  color: white;
+}
+
+.clear-button {
+  background: violet;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+}
