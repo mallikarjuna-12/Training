@@ -1,0 +1,122 @@
+App.css:
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.hover-box {
+    width: 200px;
+    height: 100px;
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0 auto; /* Centers the box horizontally */
+}
+
+.hover-box:hover {
+    background-color: blue;
+    color: white;
+    transform: scale(1.1);
+}
+
+p {
+    font-size: 20px;
+    margin-top: 10px;
+    color: #333;
+}
+App.js:
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [message, setMessage] = useState("Hover over the box!");
+
+  const handleMouseOver = () => {
+    setMessage("Mouse is over me!");
+  };
+
+  const handleMouseOut = () => {
+    setMessage("Hover over the box!");
+  };
+
+  return (
+    <div className="container">
+      <div 
+        className="hover-box" 
+        onMouseOver={handleMouseOver} 
+        onMouseOut={handleMouseOut}
+      >
+        Hover over me
+      </div>
+      <p>{message}</p>
+    </div>
+  );
+}
+
+export default App;
+
+App.js:
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  const handleChange = (event) => {
+    setCount(Number(event.target.value)); // Ensuring the value is a number
+  };
+
+  const incrementCount = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
+
+  return (
+    <div className="container">
+      <input type="number" value={count} onChange={handleChange} />
+      <p>Count: {count}</p>
+      <button onClick={incrementCount}>Increment</button>
+    </div>
+  );
+}
+
+export default App;
+App.css:
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 100px;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+p {
+    font-size: 18px;
+    color: #333;
+    margin-top: 10px;
+}
