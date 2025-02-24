@@ -1,0 +1,61 @@
+index.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox</title>
+  <style>
+    .parent {
+      height: 500px;
+      width: 500px;
+      background-color: blue;
+      color: orange;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+    }
+    .child {
+      height: 500px;
+      width: 500px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .c1 {
+      background-color: orange;
+      color: yellow;
+    }
+    .c2 {
+      background-color: white;
+      color: aqua;
+      position: relative;
+    }
+    .c2 img {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .c3 {
+      background-color: green;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="child c1"></div>
+    <div class="child c2">
+      <img src="C:\Users\91996\Desktop\images\Ashoka_Chakra.svg" alt="Ashoka Chakra">
+    </div>
+    <div class="child c3"></div>
+  </div>
+</body>
+</html>
